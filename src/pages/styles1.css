@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    
+  
+  }
+  
+  .left-column {
+    flex: 1; /* Take up 1/3 of the container width */
+    background-color: whitesmoke;
+    padding: 20px;
+    font-style: italic;
+    border: 1px solid black;
+  }
+  
+  .right-column {
+    flex: 2; /* Take up 2/3 of the container width */
+    background-color: #efc5bb;
+    padding: 20px;
+    line-height: 40px;
+    font-style: italic;
+    border: 1px solid black;
+    text-align: left;
+  }
+  
+  .pat{
+    color:black;
+    background-color: whitesmoke;
+    border-radius: 40px;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .foot {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: bottom;
+  }
