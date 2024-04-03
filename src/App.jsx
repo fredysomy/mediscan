@@ -6,20 +6,24 @@ import Profile from "./pages/Profile";
 import Reception from "./pages/Reception";
 import Nav from "./components/Nav";
 import "./App.css";
-
+import Login from "./pages/Login";
+import ProfileAdd from "./pages/ProfileAdd";
 function App() {
   return (
     <div>
-
       <Nav />
       <Router>
         <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/doctor" element={<Doctor/>}/>
-        <Route path="/reception" element={<Reception/>}/>
-        <Route path="/profile" element={<Profile/>}/>
-        <Route path="/pharmacy" element={<Pharmacy/>}/>
+          <Route path="/" element={<Home />} />
+          <Route path="/doctor" element={<Doctor />} />
+          <Route path="/reception" element={<Reception />} />
 
+          <Route path="/pharmacy" element={<Pharmacy />} />
+          <Route path="/user">
+            <Route path="login" element={<Login />} />
+            <Route path="profileuser" element={<Profile />} />
+            <Route path="profileadd" element={<ProfileAdd />} />
+          </Route>
         </Routes>
       </Router>
     </div>
