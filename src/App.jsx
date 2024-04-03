@@ -14,7 +14,12 @@ function App() {
       <Nav />
       <Router>
         <Routes>
-        <Route path="/path" element={<Doctor/>}/>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/doctor" element={<Doctor/>}/>
+        <Route path="/reception" element={<Reception/>}/>
+        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/pharmacy" element={<Pharmacy/>}/>
+
         </Routes>
       </Router>
     </div>
