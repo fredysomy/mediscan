@@ -1,0 +1,45 @@
+.container {
+    display: flex;
+    
+   
+  }
+  
+  .left-column {
+    flex: 1; 
+    padding: 20px;
+    border: 1px solid #ccc;
+  }
+  
+  .right-column {
+    flex: 2; 
+    padding: 20px;
+    border: 1px solid #ccc;
+    color: rgb(0, 0, 0);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: left;
+    background-color: antiquewhite;
+    line-height: 30px;
+    font-size: 20px;
+    
+  }
+
+  .curr{
+    background-color: #060505; /* Set the background color */
+  color: #333; /* Set the text color */
+  padding: 10px;
+  border-radius: 40px;
+  color: wheat;
+  text-align: center;
+  }
+
+
+
+  
+
+
+  
+  footer {
+    
+  }
+
+  
