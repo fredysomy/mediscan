@@ -77,7 +77,7 @@ const Doctor = () => {
 
   return (
     <>
-      <div className="container">
+      <div className="flex flex-row">
         {/* Left column */}
         <div className="left-column">
           <h1>SCAN THE QR CODE</h1>
@@ -116,7 +116,7 @@ const Doctor = () => {
               setNameofDoc(e.target.value);
             }}
           />
-          <h3>Prescriptions</h3>
+          <h3 className="mt-5">Prescriptions</h3>
           {prescriptions.map((prescription, index) => (
             <div key={index}>
               <input
@@ -159,6 +159,7 @@ const Doctor = () => {
           >
             Add Prescription
           </button>
+          <h3 className="mt-5">Diagnosis</h3>
           <input
             className={inputClasses}
             value={cause}
@@ -175,8 +176,7 @@ const Doctor = () => {
               setDiagnosis(e.target.value);
             }}
           />
-        </div>
-        <button
+          <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={(e) => {
             storeData(e);
@@ -184,6 +184,8 @@ const Doctor = () => {
         >
           Finish
         </button>
+        </div>
+        
       </div>
       <div className="flex flex-row w-screen ">
         <div className="w-1/2">
