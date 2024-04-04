@@ -12,8 +12,8 @@ const Home = () => {
                             <span className="text-blue-500 text-5xl">MediScan:</span> Spearheading healthcare innovation, putting patient data at your fingertips with every QR flick
                         </p>
                         <div className="flex justify-center items-center">
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white fond-bold py-2 px-4 rounded-full mr-4">Hospital</button>
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white fond-bold py-2 px-4 rounded-full mr-4">Patient</button>
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white fond-bold py-2 px-4 rounded-full mr-4" onClick={()=>{window.location.href="/doctor"}}>Hospital</button>
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white fond-bold py-2 px-4 rounded-full mr-4"  onClick={()=>{window.location.href="/user/profileuser"}}>Patient</button>
                         </div>
                     </div>        
                     
