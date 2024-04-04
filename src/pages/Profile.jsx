@@ -39,7 +39,7 @@ const Profile = () => {
     return !querySnapshot.empty;
   }
   async function fetchEncKey() {
-    const url = "http://localhost:3000/encrypt";
+    const url = "http://localhost:3001/encrypt";
     const options = {
       method: "POST",
       headers: { "content-type": "application/json" },

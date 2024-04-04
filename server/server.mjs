@@ -26,21 +26,21 @@ admin.initializeApp({
 });
 const app = express();
 const options = {
-  origin: '*'
+  origin: "*",
 };
 app.use(cors(options));
 app.use(express.json());
-const port = 3000;
+const port = 3001;
 
-app.post("/encrypt", (req, res) => {
-  console.log(req.body.token)
+app.post("/encrypt", async (req, res) => {
+  console.log(req.body.token);
   admin
- 
+
     .auth()
     .verifyIdToken(req.body.token)
-    .then((decodedToken) => {
+    .then(async (decodedToken) => {
       let data = decodedToken.email;
-      admin
+      await admin
         .firestore()
         .collection("profiles")
         .where("email", "==", data)
@@ -58,29 +58,86 @@ app.post("/encrypt", (req, res) => {
         .catch((err) => {
           console.log("Error getting documents", err);
         });
-        const key = Buffer.from('d17bf9951fd438fc4974bea18dfeb7ffbb4e59530ff2861a913111a670d7715b', 'hex');
-        const iv=Buffer.from('303567206903352ba2938099b0e30fb9','hex')
-        let cipher = crypto.createCipheriv("aes-256-cbc",key,iv );
-        let encrypted = cipher.update(data, "utf8", "hex");
-        encrypted += cipher.final("hex");
+      const key = Buffer.from(
+        "d17bf9951fd438fc4974bea18dfeb7ffbb4e59530ff2861a913111a670d7715b",
+        "hex"
+      );
+      const iv = Buffer.from("303567206903352ba2938099b0e30fb9", "hex");
+      let cipher = crypto.createCipheriv("aes-256-cbc", key, iv);
+      let encrypted = cipher.update(data, "utf8", "hex");
+      encrypted += cipher.final("hex");
       res.send(JSON.stringify(encrypted));
     })
     .catch((error) => {
       // Handle error
       console.log(error);
-      res.send(error)
+      res.send(error);
     });
 });
 
 app.post("/decrypt", (req, res) => {
   let data = req.body.qrrr;
-  const key = Buffer.from('d17bf9951fd438fc4974bea18dfeb7ffbb4e59530ff2861a913111a670d7715b', 'hex');
-  let decipher = crypto.createDecipheriv("aes-256-cbc", key,crypto.randomBytes(16));
+
+  const iv = Buffer.from("303567206903352ba2938099b0e30fb9", "hex");
+  const key = Buffer.from(
+    "d17bf9951fd438fc4974bea18dfeb7ffbb4e59530ff2861a913111a670d7715b",
+    "hex"
+  );
+  let decipher = crypto.createDecipheriv("aes-256-cbc", key, iv);
   let decrypted = decipher.update(data, "hex", "utf8");
   decrypted += decipher.final("utf8");
-  res.send(decrypted);
+  console.log(decrypted);
+  admin
+    .firestore()
+    .collection("profiles")
+    .doc(decrypted)
+    .get()
+    .then((doc) => {
+      console.log(doc);
+      if (doc.exists) {
+        res.json(doc.data());
+      } else {
+        res.status(404).send("No such document!");
+      }
+    })
+    .catch((error) => {
+      console.log("Error getting document:", error);
+      res.status(500).send(error);
+    });
 });
 
+app.post("/presupdate", (req, res) => {
+  console.log(req.body.profiledata);
+  let data = req.body.qrrr;
+  const iv = Buffer.from("303567206903352ba2938099b0e30fb9", "hex");
+  const key = Buffer.from(
+    "d17bf9951fd438fc4974bea18dfeb7ffbb4e59530ff2861a913111a670d7715b",
+    "hex"
+  );
+  let decipher = crypto.createDecipheriv("aes-256-cbc", key, iv);
+  let decrypted = decipher.update(data, "hex", "utf8");
+  decrypted += decipher.final("utf8");
+  console.log(decrypted);
+  admin
+    .firestore()
+    .collection("profiles")
+    .doc(decrypted)
+    .update({
+      prescriptions: admin.firestore.FieldValue.arrayUnion(
+        ...req.body.profiledata.prescriptions
+      ),
+      consultations: admin.firestore.FieldValue.arrayUnion(
+        ...req.body.profiledata.consultations
+      ),
+    })
+    .then(() => {
+      res.status(200).send({ status: "Profile updated successfully" });
+    })
+    .catch((error) => {
+      console.log("Error updating document:", error);
+      res.status(500).send(error);
+    });
+});
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
